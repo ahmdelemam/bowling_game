@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Game:</strong>
+  <%= @frame.game_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @frame.status %>
+</p>
+
+<%= link_to 'Edit', edit_frame_path(@frame) %> |
+<%= link_to 'Back', frames_path %>

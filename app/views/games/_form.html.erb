@@ -1,0 +1,65 @@
+<%= form_for(@game) do |f| %>
+  <% if @game.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@game.errors.count, "error") %> prohibited this game from being saved:</h2>
+
+      <ul>
+      <% @game.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :gamer_name %>
+    <%= f.text_field :gamer_name %>
+    <%= " SCORE :- #{@game.score}" %>
+  </div>
+  <%x=0%>
+  <%= f.fields_for :frames do |builder| %>
+    <fieldset class="field">
+    <legend><%= "Frame #{x+=1} is #{builder.object.status}" %></legend>
+      <%= render 'games/frame', ff: builder  %>
+    </fieldset>
+    <br>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+<script>
+  $( document ).ready(function() {
+    $( "fieldset" ).each(function( index ) {
+      //console.log( index+1 + ": " + $( this ).find('input:first').val() );
+      console.log( index+1 + ": " + $( this ).find('input:text:eq(0)').val() );
+      console.log( index+1 + ": " + $( this ).find('input:text:eq(1)').val() );
+      console.log( index+1 + ": " + $( this ).find('input:text:eq(2)').val() );
+      var first_input = $( this ).find('input:text:eq(0)');
+      var second_input = $( this ).find('input:text:eq(1)');
+      var third_input = $( this ).find('input:text:eq(2)');
+      if ( first_input.val() == ""){
+        second_input.attr('disabled','disabled');
+        third_input.attr('disabled','disabled');
+      } 
+      if ( first_input.val() != ""){
+        second_input.removeAttr('disabled');
+        third_input.attr('disabled','disabled');
+      } 
+      if ( second_input.val() != ""){
+        third_input.removeAttr('disabled');
+      } 
+      first_input.change(function() {
+        second_input.removeAttr('disabled');
+      });
+      second_input.change(function() {
+        third_input.removeAttr('disabled');
+      });
+    });
+    //console.log( $('fieldset').find('input:first').val() );.removeAttr('disabled')
+    //console.log( $('fieldset input:nth-child(2)').val() );
+    //console.log( $('fieldset').find('input:third') );
+  });
+</script>
+        

@@ -1,0 +1,8 @@
+<%= ff.fields_for :tries do |fff| %>
+  <div class="field">
+    <%= fff.label "Try NO : #{fff.object.sort}" %>
+    <%= fff.text_field :score %>
+    <%= fff.hidden_field :frame_id, value: fff.object.frame_id %>
+  </div>
+<% end %>
+
